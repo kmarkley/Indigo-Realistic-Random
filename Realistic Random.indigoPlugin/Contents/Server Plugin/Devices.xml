@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<Devices>
+	<Device type="relay" id="realisticRandomizer">
+	    <Name>Realistic Randomizer</Name>
+	    <ConfigUI>
+            <Field id="label1" type="label">
+                <Label>All times are in minutes.</Label>
+            </Field>
+            <Field id="devId01" type="menu">
+                <Label>Device 1:</Label>
+                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+            </Field>
+            <Field id="minDelay01" type="textfield" defaultValue="5">
+                <Label>Min. Delay:</Label>
+            </Field>
+            <Field id="maxDelay01" type="textfield" defaultValue="60">
+                <Label>Max. Delay:</Label>
+            </Field>
+            <Field id="minDuration01" type="textfield" defaultValue="5">
+                <Label>Min. Duration:</Label>
+            </Field>
+            <Field id="maxDuration01" type="textfield" defaultValue="60">
+                <Label>Max. Duration:</Label>
+            </Field>
+            <Field id="sep1" type="separator"/>
+            <Field id="devId02" type="menu">
+                <Label>Device 2:</Label>
+                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+            </Field>
+            <Field id="minDelay02" type="textfield" defaultValue="5">
+                <Label>Min. Delay:</Label>
+            </Field>
+            <Field id="maxDelay02" type="textfield" defaultValue="60">
+                <Label>Max. Delay:</Label>
+            </Field>
+            <Field id="minDuration02" type="textfield" defaultValue="5">
+                <Label>Min. Duration:</Label>
+            </Field>
+            <Field id="maxDuration02" type="textfield" defaultValue="60">
+                <Label>Max. Duration:</Label>
+            </Field>
+            <Field id="sep2" type="separator"/>
+            <Field id="devId03" type="menu">
+                <Label>Device 3:</Label>
+                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+            </Field>
+            <Field id="minDelay03" type="textfield" defaultValue="5">
+                <Label>Min. Delay:</Label>
+            </Field>
+            <Field id="maxDelay03" type="textfield" defaultValue="60">
+                <Label>Max. Delay:</Label>
+            </Field>
+            <Field id="minDuration03" type="textfield" defaultValue="5">
+                <Label>Min. Duration:</Label>
+            </Field>
+            <Field id="maxDuration03" type="textfield" defaultValue="60">
+                <Label>Max. Duration:</Label>
+            </Field>
+            <Field id="sep3" type="separator"/>
+            <Field id="devId04" type="menu">
+                <Label>Device 4:</Label>
+                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+            </Field>
+            <Field id="minDelay04" type="textfield" defaultValue="5">
+                <Label>Min. Delay:</Label>
+            </Field>
+            <Field id="maxDelay04" type="textfield" defaultValue="60">
+                <Label>Max. Delay:</Label>
+            </Field>
+            <Field id="minDuration04" type="textfield" defaultValue="5">
+                <Label>Min. Duration:</Label>
+            </Field>
+            <Field id="maxDuration04" type="textfield" defaultValue="60">
+                <Label>Max. Duration:</Label>
+            </Field>
+            <Field id="sep4" type="separator"/>
+            <Field id="devId05" type="menu">
+                <Label>Device 5:</Label>
+                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+            </Field>
+            <Field id="minDelay05" type="textfield" defaultValue="5">
+                <Label>Min. Delay:</Label>
+            </Field>
+            <Field id="maxDelay05" type="textfield" defaultValue="60">
+                <Label>Max. Delay:</Label>
+            </Field>
+            <Field id="minDuration05" type="textfield" defaultValue="5">
+                <Label>Min. Duration:</Label>
+            </Field>
+            <Field id="maxDuration05" type="textfield" defaultValue="60">
+                <Label>Max. Duration:</Label>
+            </Field>
+            <Field id="sep5" type="separator"/>
+            <Field id="devId06" type="menu">
+                <Label>Device 6:</Label>
+                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+            </Field>
+            <Field id="minDelay06" type="textfield" defaultValue="5">
+                <Label>Min. Delay:</Label>
+            </Field>
+            <Field id="maxDelay06" type="textfield" defaultValue="60">
+                <Label>Max. Delay:</Label>
+            </Field>
+            <Field id="minDuration06" type="textfield" defaultValue="5">
+                <Label>Min. Duration:</Label>
+            </Field>
+            <Field id="maxDuration06" type="textfield" defaultValue="60">
+                <Label>Max. Duration:</Label>
+            </Field>
+            <Field id="sep6" type="separator"/>
+            <Field id="devId07" type="menu">
+                <Label>Device 7:</Label>
+                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+            </Field>
+            <Field id="minDelay07" type="textfield" defaultValue="5">
+                <Label>Min. Delay:</Label>
+            </Field>
+            <Field id="maxDelay07" type="textfield" defaultValue="60">
+                <Label>Max. Delay:</Label>
+            </Field>
+            <Field id="minDuration07" type="textfield" defaultValue="5">
+                <Label>Min. Duration:</Label>
+            </Field>
+            <Field id="maxDuration07" type="textfield" defaultValue="60">
+                <Label>Max. Duration:</Label>
+            </Field>
+            <Field id="sep7" type="separator"/>
+            <Field id="devId08" type="menu">
+                <Label>Device 8:</Label>
+                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+            </Field>
+            <Field id="minDelay08" type="textfield" defaultValue="5">
+                <Label>Min. Delay:</Label>
+            </Field>
+            <Field id="maxDelay08" type="textfield" defaultValue="60">
+                <Label>Max. Delay:</Label>
+            </Field>
+            <Field id="minDuration08" type="textfield" defaultValue="5">
+                <Label>Min. Duration:</Label>
+            </Field>
+            <Field id="maxDuration08" type="textfield" defaultValue="60">
+                <Label>Max. Duration:</Label>
+            </Field>
+            <Field id="sep8" type="separator"/>
+            <Field id="devId09" type="menu">
+                <Label>Device 9:</Label>
+                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+            </Field>
+            <Field id="minDelay09" type="textfield" defaultValue="5">
+                <Label>Min. Delay:</Label>
+            </Field>
+            <Field id="maxDelay09" type="textfield" defaultValue="60">
+                <Label>Max. Delay:</Label>
+            </Field>
+            <Field id="minDuration09" type="textfield" defaultValue="5">
+                <Label>Min. Duration:</Label>
+            </Field>
+            <Field id="maxDuration09" type="textfield" defaultValue="60">
+                <Label>Max. Duration:</Label>
+            </Field>
+            <Field id="sep9" type="separator"/>
+            <Field id="devId10" type="menu">
+                <Label>Device 10:</Label>
+                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+            </Field>
+            <Field id="minDelay10" type="textfield" defaultValue="5">
+                <Label>Min. Delay:</Label>
+            </Field>
+            <Field id="maxDelay10" type="textfield" defaultValue="60">
+                <Label>Max. Delay:</Label>
+            </Field>
+            <Field id="minDuration10" type="textfield" defaultValue="5">
+                <Label>Min. Duration:</Label>
+            </Field>
+            <Field id="maxDuration10" type="textfield" defaultValue="60">
+                <Label>Max. Duration:</Label>
+            </Field>
+        </ConfigUI>
+	    <States>
+            <State id="nextUpdate">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Next Update</TriggerLabel>
+                <ControlPageLabel>Next Update</ControlPageLabel>
+                <readonly>YES</readonly>
+            </State>
+	    </States>
+    </Device>
+</Devices>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Devices>
-	<Device type="relay" id="realisticRandomizer">
+	<Device type="relay" id="randomizer">
 	    <Name>Realistic Randomizer</Name>
 	    <ConfigUI>
             <Field id="label1" type="label">

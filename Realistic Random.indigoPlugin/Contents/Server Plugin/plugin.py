@@ -16,7 +16,7 @@ import random
 # globals
 
 latestStateList = {
-    "realisticRandomizer": (
+    "randomizer": (
         "nextUpdate",
         ),
     }
@@ -158,9 +158,11 @@ class Plugin(indigo.PluginBase):
     def actionControlDimmerRelay(self, action, dev):
         self.logger.debug(u"actionControlDimmerRelay: "+dev.name)
         if action.deviceAction == indigo.kDimmerRelayAction.TurnOn:
+            self.logger.info('"%s" on' % dev.name)
             dev.updateStateOnServer(key='onOffState', value=True)
             self.updateDeviceStatus(dev)
         elif action.deviceAction == indigo.kDimmerRelayAction.TurnOff:
+            self.logger.info('"%s" off' % dev.name)
             dev.updateStateOnServer(key='onOffState', value=False)
         elif action.deviceAction == indigo.kUniversalAction.RequestStatus:
             self.updateDeviceStatus(dev)

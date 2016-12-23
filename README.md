@@ -8,7 +8,7 @@ This approach also means that each light will turn off on it's own independent s
 
 ## Devices
 
-The plugin defines one new type of Device, called Realistic Randomizer.  Each Realistic Randomizer device can control up to 10 relay/dimmer devices.  If you need more, just create additional Randomizers.
+The plugin defines one new type of Device, called Randomizer.  Each Randomizer device can control up to 10 relay/dimmer devices.  If you need more, just create additional Randomizers.
 
 #### Configuration
 
@@ -36,8 +36,8 @@ Seconds after epoch when the next update is scheduled.  Used internally.
 
 ## How to Use
 
-* Turn the Realistic Randomizer device on to begin scheduling WAIT-ON-WAIT-OFF cycles for each dimmer/relay device it controls.
+* Turn the Randomizer device **ON** to begin scheduling WAIT-ON-WAIT-OFF cycles for each dimmer/relay device it controls.
 
-* Turn the Realistic Randomizer device off to stop scheduling new cycles.  All controlled devices will complete their current cycles as scheduled.  
+* Turn the Randomizer device **OFF** to stop scheduling new cycles.  All controlled devices will complete their current cycles as scheduled.  
 
-As a practical matter, this means you will likely want to turn the randomizer on and off in advance of when you would like the actual lights on and off.  A little trial-and-error may be required.
+As a practical matter, this means you will likely want to turn the randomizer on and off in advance of when you would like the actual lights on and off.  A little trial-and-error is to be expected.

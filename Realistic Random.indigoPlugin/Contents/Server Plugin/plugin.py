@@ -22,10 +22,12 @@ latestStateList = {
     }
 
 lightDictKeys = (
+    'devId',
     'minDelay',
     'maxDelay',
     'minDuration',
     'maxDuration',
+    'expires'
     )
 
 ################################################################################
@@ -104,10 +106,9 @@ class Plugin(indigo.PluginBase):
         self.logger.debug(u"validateDeviceConfigUi: " + typeId)
         errorsDict = indigo.Dict()
         
-        for i in range(1,10):
-            idx = '%02d' % i
+        for idx in ("%02d"%i for i in range(1,11)):
             if valuesDict.get('devId'+idx,''):
-                for key in lightDictKeys:
+                for key in lightDictKeys[1:-1]:
                     if valuesDict.get(key+idx,'') == '':
                         errorsDict[key+idx] = "Must not be empty"
                     elif not valuesDict.get(key+idx).isdigit():
@@ -139,14 +140,13 @@ class Plugin(indigo.PluginBase):
         startTime = time.time()
         theProps = dev.pluginProps
         expireList = []
-        for i in range(1,10):
-            idx = '%02d' % i
-            if theProps.get('devId'+idx,False):
-                if (theProps.get('expires'+idx,0) < startTime):
-                    randomDelay    = random.randrange(int(theProps.get('minDelay'+idx))*60, int(theProps.get('maxDelay'+idx))*60, 1)
-                    randomDuration = random.randrange(int(theProps.get('minDuration'+idx))*60, int(theProps.get('maxDuration'+idx))*60, 1)
-                    indigo.device.turnOn(int(theProps.get('devId'+idx)), duration=randomDuration, delay=randomDelay)
-                    self.logger.info('"%s" random (delay %s, duration %s)' % (indigo.devices[int(theProps.get('devId'+idx))].name, str(datetime.timedelta(seconds=randomDelay)), str(datetime.timedelta(seconds=randomDuration))))
+        for idx, light in self.getLightsDict(theProps).iteritems():
+            if light['devId']:
+                if light['expires'] < startTime:
+                    randomDelay    = random.randrange(light['minDelay']*60, light['maxDelay']*60, 1)
+                    randomDuration = random.randrange(light['minDuration']*60, light['maxDuration']*60, 1)
+                    indigo.device.turnOn(light['devId'], duration=randomDuration, delay=randomDelay)
+                    self.logger.info('"%s" random (delay %s, duration %s)' % (indigo.devices[light['devId']].name, str(datetime.timedelta(seconds=randomDelay)), str(datetime.timedelta(seconds=randomDuration))))
                     theProps['expires'+idx] = int(startTime + randomDelay + randomDuration)
                 expireList.append(theProps.get('expires'+idx))
         # update device
@@ -165,7 +165,9 @@ class Plugin(indigo.PluginBase):
             self.logger.info('"%s" off' % dev.name)
             dev.updateStateOnServer(key='onOffState', value=False)
         elif action.deviceAction == indigo.kUniversalAction.RequestStatus:
-            self.updateDeviceStatus(dev)
+            self.logger.info('"%s" status update' % dev.name)
+            if dev.onState:
+                self.updateDeviceStatus(dev)
         else:
             self.logger.error("Unknown action: "+unicode(action.deviceAction))
     
@@ -174,7 +176,7 @@ class Plugin(indigo.PluginBase):
     # Action Methods
     ########################################
     
-        
+    
     
     ########################################
     # Menu Methods
@@ -186,3 +188,14 @@ class Plugin(indigo.PluginBase):
     # Utilities
     ########################################
     
+    def getLightsDict(self, theProps):
+        lightsDict={}
+        for idx in ("%02d"%i for i in range(1,11)):
+            vals = {}
+            for key in lightDictKeys:
+                if theProps.get(key+idx,''):
+                    vals[key] = int(theProps.get(key+idx))
+                else:
+                    vals[key] = 0
+            lightsDict[idx] = vals
+        return lightsDict

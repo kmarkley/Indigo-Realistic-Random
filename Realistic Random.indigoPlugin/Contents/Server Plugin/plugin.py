@@ -45,7 +45,7 @@ class Plugin(indigo.PluginBase):
         self.logger.debug(u"startup")
         if self.debug:
             self.logger.debug("Debug logging enabled")
-        self.deviceList = []
+        self.deviceDict = dict()
 
     def shutdown(self):
         self.logger.debug(u"shutdown")
@@ -77,20 +77,19 @@ class Plugin(indigo.PluginBase):
         self.logger.debug(u"deviceStartComm: "+dev.name)
         self.updateDeviceStates(dev)
         self.updateDeviceProps(dev)
-        if dev.id not in self.deviceList:
-            self.deviceList.append(dev.id)
+        if dev.id not in self.deviceDict:
+            self.deviceDict[dev.id] = dev
     
     def deviceStopComm(self, dev):
         self.logger.debug(u"deviceStopComm: "+dev.name)
-        if dev.id in self.deviceList:
-            self.deviceList.remove(dev.id)
+        if dev.id in self.deviceDict:
+            del self.deviceDict[dev.id]
             
     def runConcurrentThread(self):
         try:
             while True:
                 loopTime = time.time()
-                for devId in self.deviceList:
-                    dev = indigo.devices[devId]
+                for devId, dev in self.deviceDict.items():
                     if dev.onState and (dev.states["nextUpdate"] < loopTime):
                         self.updateDeviceStatus(dev)
                 self.sleep(int(loopTime+10-time.time()))

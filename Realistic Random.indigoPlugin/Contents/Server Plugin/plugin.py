@@ -15,12 +15,6 @@ import random
 ###############################################################################
 # globals
 
-latestStateList = {
-    "randomizer": (
-        "nextUpdate",
-        ),
-    }
-
 lightDictKeys = (
     'devId',
     'minDelay',
@@ -75,8 +69,8 @@ class Plugin(indigo.PluginBase):
 
     def deviceStartComm(self, dev):
         self.logger.debug(u"deviceStartComm: "+dev.name)
-        self.updateDeviceStates(dev)
-        self.updateDeviceProps(dev)
+        if dev.version != self.pluginVersion:
+            self.updateDeviceVersion(dev)
         if dev.id not in self.deviceDict:
             self.deviceDict[dev.id] = dev
     
@@ -123,16 +117,19 @@ class Plugin(indigo.PluginBase):
         # not necessary to re-start device on changes
         return False
     
-    def updateDeviceStates(self, dev):
-        if any(item not in dev.states for item in latestStateList[dev.deviceTypeId]):
-            dev.stateListOrDisplayStateIdChanged()
-    
-    def updateDeviceProps(self, dev):
-        return
+    def updateDeviceVersion(self, dev):
         theProps = dev.pluginProps
-        # update props
-        if theProps != dev.pluginProps:
-            dev.replacePluginPropsOnServer(theProps)
+        # update states
+        dev.stateListOrDisplayStateIdChanged()
+        # check for props
+        for idx in ("%02d"%i for i in range(1,11)):
+            vals = {}
+            for key in lightDictKeys:
+                if key+idx not in theProps:
+                    theProps[key+idx] = ''
+        # push to server
+        theProps["version"] = self.pluginVersion
+        dev.replacePluginPropsOnServer(theProps)
     
     def updateDeviceStatus(self,dev):
         self.logger.debug(u"updateDeviceStatus: " + dev.name)
@@ -152,6 +149,7 @@ class Plugin(indigo.PluginBase):
         if theProps != dev.pluginProps:
             self.logger.debug(u"updateDeviceStatus: replacing device props")
             dev.replacePluginPropsOnServer(theProps)
+            # don't update again until at least one cycle completes
             dev.updateStateOnServer(key='nextUpdate',value=min(expireList))
     
     def actionControlDimmerRelay(self, action, dev):
@@ -169,18 +167,6 @@ class Plugin(indigo.PluginBase):
                 self.updateDeviceStatus(dev)
         else:
             self.logger.error("Unknown action: "+unicode(action.deviceAction))
-    
-    
-    ########################################
-    # Action Methods
-    ########################################
-    
-    
-    
-    ########################################
-    # Menu Methods
-    ########################################
-    
     
     
     ########################################

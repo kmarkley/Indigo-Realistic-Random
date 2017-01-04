@@ -6,8 +6,9 @@
             <Field id="label1" type="label">
                 <Label>All times are in minutes.</Label>
             </Field>
+            <Field id="sep0" type="separator"/>
             <Field id="devId01" type="menu">
-                <Label>Device 1:</Label>
+                <Label>Select Device 1:</Label>
                 <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
             </Field>
             <Field id="minDelay01" type="textfield" defaultValue="5">
@@ -23,156 +24,183 @@
                 <Label>Max. Duration:</Label>
             </Field>
             <Field id="sep1" type="separator"/>
-            <Field id="devId02" type="menu">
-                <Label>Device 2:</Label>
+            <Field id="show02" type="checkbox">
+                <Label>Show Device 2:</Label>
+            </Field>
+            <Field id="devId02" type="menu" visibleBindingId='show02'  visibleBindingValue='true'>
+                <Label>Select Device 2:</Label>
                 <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
             </Field>
-            <Field id="minDelay02" type="textfield" defaultValue="5">
+            <Field id="minDelay02" type="textfield" defaultValue="5" visibleBindingId='show02'  visibleBindingValue='true'>
                 <Label>Min. Delay:</Label>
             </Field>
-            <Field id="maxDelay02" type="textfield" defaultValue="60">
+            <Field id="maxDelay02" type="textfield" defaultValue="60" visibleBindingId='show02'  visibleBindingValue='true'>
                 <Label>Max. Delay:</Label>
             </Field>
-            <Field id="minDuration02" type="textfield" defaultValue="5">
+            <Field id="minDuration02" type="textfield" defaultValue="5" visibleBindingId='show02'  visibleBindingValue='true'>
                 <Label>Min. Duration:</Label>
             </Field>
-            <Field id="maxDuration02" type="textfield" defaultValue="60">
+            <Field id="maxDuration02" type="textfield" defaultValue="60" visibleBindingId='show02'  visibleBindingValue='true'>
                 <Label>Max. Duration:</Label>
             </Field>
-            <Field id="sep2" type="separator"/>
-            <Field id="devId03" type="menu">
-                <Label>Device 3:</Label>
+            <Field id="sep2" type="separator" visibleBindingId='show02'  visibleBindingValue='true'/>
+            <Field id="show03" type="checkbox" visibleBindingId='show02'  visibleBindingValue='true'>
+                <Label>Show Device 3:</Label>
+            </Field>
+            <Field id="devId03" type="menu" visibleBindingId='show03'  visibleBindingValue='true'>
+                <Label>Select Device 3:</Label>
                 <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
             </Field>
-            <Field id="minDelay03" type="textfield" defaultValue="5">
+            <Field id="minDelay03" type="textfield" defaultValue="5" visibleBindingId='show03'  visibleBindingValue='true'>
                 <Label>Min. Delay:</Label>
             </Field>
-            <Field id="maxDelay03" type="textfield" defaultValue="60">
+            <Field id="maxDelay03" type="textfield" defaultValue="60" visibleBindingId='show03'  visibleBindingValue='true'>
                 <Label>Max. Delay:</Label>
             </Field>
-            <Field id="minDuration03" type="textfield" defaultValue="5">
+            <Field id="minDuration03" type="textfield" defaultValue="5" visibleBindingId='show03'  visibleBindingValue='true'>
                 <Label>Min. Duration:</Label>
             </Field>
-            <Field id="maxDuration03" type="textfield" defaultValue="60">
+            <Field id="maxDuration03" type="textfield" defaultValue="60" visibleBindingId='show03'  visibleBindingValue='true'>
                 <Label>Max. Duration:</Label>
             </Field>
-            <Field id="sep3" type="separator"/>
-            <Field id="devId04" type="menu">
-                <Label>Device 4:</Label>
+            <Field id="sep3" type="separator" visibleBindingId='show03'  visibleBindingValue='true'/>
+            <Field id="show04" type="checkbox" visibleBindingId='show03'  visibleBindingValue='true'>
+                <Label>Show Device 4:</Label>
+            </Field>
+            <Field id="devId04" type="menu" visibleBindingId='show04'  visibleBindingValue='true'>
+                <Label>Select Device 4:</Label>
                 <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
             </Field>
-            <Field id="minDelay04" type="textfield" defaultValue="5">
+            <Field id="minDelay04" type="textfield" defaultValue="5" visibleBindingId='show04'  visibleBindingValue='true'>
                 <Label>Min. Delay:</Label>
             </Field>
-            <Field id="maxDelay04" type="textfield" defaultValue="60">
+            <Field id="maxDelay04" type="textfield" defaultValue="60" visibleBindingId='show04'  visibleBindingValue='true'>
                 <Label>Max. Delay:</Label>
             </Field>
-            <Field id="minDuration04" type="textfield" defaultValue="5">
+            <Field id="minDuration04" type="textfield" defaultValue="5" visibleBindingId='show04'  visibleBindingValue='true'>
                 <Label>Min. Duration:</Label>
             </Field>
-            <Field id="maxDuration04" type="textfield" defaultValue="60">
+            <Field id="maxDuration04" type="textfield" defaultValue="60" visibleBindingId='show04'  visibleBindingValue='true'>
                 <Label>Max. Duration:</Label>
             </Field>
-            <Field id="sep4" type="separator"/>
-            <Field id="devId05" type="menu">
-                <Label>Device 5:</Label>
+            <Field id="sep4" type="separator" visibleBindingId='show04'  visibleBindingValue='true'/>
+            <Field id="show05" type="checkbox" visibleBindingId='show04'  visibleBindingValue='true'>
+                <Label>Show Device 5:</Label>
+            </Field>
+            <Field id="devId05" type="menu" visibleBindingId='show05'  visibleBindingValue='true'>
+                <Label>Select Device 5:</Label>
                 <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
             </Field>
-            <Field id="minDelay05" type="textfield" defaultValue="5">
+            <Field id="minDelay05" type="textfield" defaultValue="5" visibleBindingId='show05'  visibleBindingValue='true'>
                 <Label>Min. Delay:</Label>
             </Field>
-            <Field id="maxDelay05" type="textfield" defaultValue="60">
+            <Field id="maxDelay05" type="textfield" defaultValue="60" visibleBindingId='show05'  visibleBindingValue='true'>
                 <Label>Max. Delay:</Label>
             </Field>
-            <Field id="minDuration05" type="textfield" defaultValue="5">
+            <Field id="minDuration05" type="textfield" defaultValue="5" visibleBindingId='show05'  visibleBindingValue='true'>
                 <Label>Min. Duration:</Label>
             </Field>
-            <Field id="maxDuration05" type="textfield" defaultValue="60">
+            <Field id="maxDuration05" type="textfield" defaultValue="60" visibleBindingId='show05'  visibleBindingValue='true'>
                 <Label>Max. Duration:</Label>
             </Field>
-            <Field id="sep5" type="separator"/>
-            <Field id="devId06" type="menu">
-                <Label>Device 6:</Label>
+            <Field id="sep5" type="separator" visibleBindingId='show05'  visibleBindingValue='true'/>
+            <Field id="show06" type="checkbox" visibleBindingId='show05'  visibleBindingValue='true'>
+                <Label>Show Device 6:</Label>
+            </Field>
+            <Field id="devId06" type="menu" visibleBindingId='show06'  visibleBindingValue='true'>
+                <Label>Select Device 6:</Label>
                 <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
             </Field>
-            <Field id="minDelay06" type="textfield" defaultValue="5">
+            <Field id="minDelay06" type="textfield" defaultValue="5" visibleBindingId='show06'  visibleBindingValue='true'>
                 <Label>Min. Delay:</Label>
             </Field>
-            <Field id="maxDelay06" type="textfield" defaultValue="60">
+            <Field id="maxDelay06" type="textfield" defaultValue="60" visibleBindingId='show06'  visibleBindingValue='true'>
                 <Label>Max. Delay:</Label>
             </Field>
-            <Field id="minDuration06" type="textfield" defaultValue="5">
+            <Field id="minDuration06" type="textfield" defaultValue="5" visibleBindingId='show06'  visibleBindingValue='true'>
                 <Label>Min. Duration:</Label>
             </Field>
-            <Field id="maxDuration06" type="textfield" defaultValue="60">
+            <Field id="maxDuration06" type="textfield" defaultValue="60" visibleBindingId='show06'  visibleBindingValue='true'>
                 <Label>Max. Duration:</Label>
             </Field>
-            <Field id="sep6" type="separator"/>
-            <Field id="devId07" type="menu">
-                <Label>Device 7:</Label>
+            <Field id="sep6" type="separator" visibleBindingId='show06'  visibleBindingValue='true'/>
+            <Field id="show07" type="checkbox" visibleBindingId='show06'  visibleBindingValue='true'>
+                <Label>Show Device 7:</Label>
+            </Field>
+            <Field id="devId07" type="menu" visibleBindingId='show07'  visibleBindingValue='true'>
+                <Label>Select Device 7:</Label>
                 <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
             </Field>
-            <Field id="minDelay07" type="textfield" defaultValue="5">
+            <Field id="minDelay07" type="textfield" defaultValue="5" visibleBindingId='show07'  visibleBindingValue='true'>
                 <Label>Min. Delay:</Label>
             </Field>
-            <Field id="maxDelay07" type="textfield" defaultValue="60">
+            <Field id="maxDelay07" type="textfield" defaultValue="60" visibleBindingId='show07'  visibleBindingValue='true'>
                 <Label>Max. Delay:</Label>
             </Field>
-            <Field id="minDuration07" type="textfield" defaultValue="5">
+            <Field id="minDuration07" type="textfield" defaultValue="5" visibleBindingId='show07'  visibleBindingValue='true'>
                 <Label>Min. Duration:</Label>
             </Field>
-            <Field id="maxDuration07" type="textfield" defaultValue="60">
+            <Field id="maxDuration07" type="textfield" defaultValue="60" visibleBindingId='show07'  visibleBindingValue='true'>
                 <Label>Max. Duration:</Label>
             </Field>
-            <Field id="sep7" type="separator"/>
-            <Field id="devId08" type="menu">
-                <Label>Device 8:</Label>
+            <Field id="sep7" type="separator" visibleBindingId='show07'  visibleBindingValue='true'/>
+            <Field id="show08" type="checkbox" visibleBindingId='show07'  visibleBindingValue='true'>
+                <Label>Show Device 8:</Label>
+            </Field>
+            <Field id="devId08" type="menu" visibleBindingId='show08'  visibleBindingValue='true'>
+                <Label>Select Device 8:</Label>
                 <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
             </Field>
-            <Field id="minDelay08" type="textfield" defaultValue="5">
+            <Field id="minDelay08" type="textfield" defaultValue="5" visibleBindingId='show08'  visibleBindingValue='true'>
                 <Label>Min. Delay:</Label>
             </Field>
-            <Field id="maxDelay08" type="textfield" defaultValue="60">
+            <Field id="maxDelay08" type="textfield" defaultValue="60" visibleBindingId='show08'  visibleBindingValue='true'>
                 <Label>Max. Delay:</Label>
             </Field>
-            <Field id="minDuration08" type="textfield" defaultValue="5">
+            <Field id="minDuration08" type="textfield" defaultValue="5" visibleBindingId='show08'  visibleBindingValue='true'>
                 <Label>Min. Duration:</Label>
             </Field>
-            <Field id="maxDuration08" type="textfield" defaultValue="60">
+            <Field id="maxDuration08" type="textfield" defaultValue="60" visibleBindingId='show08'  visibleBindingValue='true'>
                 <Label>Max. Duration:</Label>
             </Field>
-            <Field id="sep8" type="separator"/>
-            <Field id="devId09" type="menu">
-                <Label>Device 9:</Label>
+            <Field id="sep8" type="separator" visibleBindingId='show08'  visibleBindingValue='true'/>
+            <Field id="show09" type="checkbox" visibleBindingId='show08'  visibleBindingValue='true'>
+                <Label>Show Device 9:</Label>
+            </Field>
+            <Field id="devId09" type="menu" visibleBindingId='show09'  visibleBindingValue='true'>
+                <Label>Select Device 9:</Label>
                 <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
             </Field>
-            <Field id="minDelay09" type="textfield" defaultValue="5">
+            <Field id="minDelay09" type="textfield" defaultValue="5" visibleBindingId='show09'  visibleBindingValue='true'>
                 <Label>Min. Delay:</Label>
             </Field>
-            <Field id="maxDelay09" type="textfield" defaultValue="60">
+            <Field id="maxDelay09" type="textfield" defaultValue="60" visibleBindingId='show09'  visibleBindingValue='true'>
                 <Label>Max. Delay:</Label>
             </Field>
-            <Field id="minDuration09" type="textfield" defaultValue="5">
+            <Field id="minDuration09" type="textfield" defaultValue="5" visibleBindingId='show09'  visibleBindingValue='true'>
                 <Label>Min. Duration:</Label>
             </Field>
-            <Field id="maxDuration09" type="textfield" defaultValue="60">
+            <Field id="maxDuration09" type="textfield" defaultValue="60" visibleBindingId='show09'  visibleBindingValue='true'>
                 <Label>Max. Duration:</Label>
             </Field>
-            <Field id="sep9" type="separator"/>
-            <Field id="devId10" type="menu">
-                <Label>Device 10:</Label>
+            <Field id="sep9" type="separator" visibleBindingId='show09'  visibleBindingValue='true'/>
+            <Field id="show10" type="checkbox" visibleBindingId='show09'  visibleBindingValue='true'>
+                <Label>Show Device 10:</Label>
+            </Field>
+            <Field id="devId10" type="menu" visibleBindingId='show10'  visibleBindingValue='true'>
+                <Label>Select Device 10:</Label>
                 <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
             </Field>
-            <Field id="minDelay10" type="textfield" defaultValue="5">
+            <Field id="minDelay10" type="textfield" defaultValue="5" visibleBindingId='show10'  visibleBindingValue='true'>
                 <Label>Min. Delay:</Label>
             </Field>
-            <Field id="maxDelay10" type="textfield" defaultValue="60">
+            <Field id="maxDelay10" type="textfield" defaultValue="60" visibleBindingId='show10'  visibleBindingValue='true'>
                 <Label>Max. Delay:</Label>
             </Field>
-            <Field id="minDuration10" type="textfield" defaultValue="5">
+            <Field id="minDuration10" type="textfield" defaultValue="5" visibleBindingId='show10'  visibleBindingValue='true'>
                 <Label>Min. Duration:</Label>
             </Field>
-            <Field id="maxDuration10" type="textfield" defaultValue="60">
+            <Field id="maxDuration10" type="textfield" defaultValue="60" visibleBindingId='show10'  visibleBindingValue='true'>
                 <Label>Max. Duration:</Label>
             </Field>
         </ConfigUI>

@@ -204,13 +204,5 @@
                 <Label>Max. Duration:</Label>
             </Field>
         </ConfigUI>
-	    <States>
-            <State id="nextUpdate">
-                <ValueType>Number</ValueType>
-                <TriggerLabel>Next Update</TriggerLabel>
-                <ControlPageLabel>Next Update</ControlPageLabel>
-                <readonly>YES</readonly>
-            </State>
-	    </States>
     </Device>
 </Devices>

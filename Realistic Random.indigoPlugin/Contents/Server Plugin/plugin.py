@@ -72,7 +72,7 @@ class Plugin(indigo.PluginBase):
         if dev.version != self.pluginVersion:
             self.updateDeviceVersion(dev)
         if dev.id not in self.deviceDict:
-            self.deviceDict[dev.id] = dev
+            self.deviceDict[dev.id] = {'dev':dev, 'nextUpdate':0}
     
     def deviceStopComm(self, dev):
         self.logger.debug(u"deviceStopComm: "+dev.name)
@@ -83,8 +83,9 @@ class Plugin(indigo.PluginBase):
         try:
             while True:
                 loopTime = time.time()
-                for devId, dev in self.deviceDict.items():
-                    if dev.onState and (dev.states["nextUpdate"] < loopTime):
+                for devId in self.deviceDict:
+                    dev = self.deviceDict[devId]['dev']
+                    if dev.onState and (self.deviceDict[devId]['nextUpdate'] < loopTime):
                         self.updateDeviceStatus(dev)
                 self.sleep(int(loopTime+10-time.time()))
         except self.StopThread:
@@ -112,10 +113,6 @@ class Plugin(indigo.PluginBase):
         if len(errorsDict) > 0:
             return (False, valuesDict, errorsDict)
         return (True, valuesDict)
-    
-    def didDeviceCommPropertyChange(self, origDev, newDev):
-        # not necessary to re-start device on changes
-        return False
     
     def updateDeviceVersion(self, dev):
         theProps = dev.pluginProps
@@ -150,7 +147,7 @@ class Plugin(indigo.PluginBase):
             self.logger.debug(u"updateDeviceStatus: replacing device props")
             dev.replacePluginPropsOnServer(theProps)
             # don't update again until at least one cycle completes
-            dev.updateStateOnServer(key='nextUpdate',value=min(expireList))
+            self.deviceDict[dev.id]['nextUpdate'] = min(expireList)
     
     def actionControlDimmerRelay(self, action, dev):
         self.logger.debug(u"actionControlDimmerRelay: "+dev.name)

@@ -1,8 +1,8 @@
 # Realistic Random
 
-This is a simple plugin for random lighting control in Indigo.  Unlike other approaches, the plugin will create separate, randomized, WAIT-ON-WAIT-OFF cycles for each light it controls.  
+This is a simple plugin for random lighting control in Indigo.  Unlike other approaches, the plugin will create separate, randomized, wait-ON-wait-OFF cycles for each light it controls.  
 
-This allows for more realistic effects. For example, you may want the bathroom light to have several widely-varying off periods and short on periods, while ceiling lights remain on for very long periods with only the start and end time randomized.
+This allows for more realistic effects. For example, a bathroom light might turn on more frequently and for shorter periods than a light in the living room.
 
 This approach also means that each light will turn off on it's own independent schedule versus all lights turning off at once.
 
@@ -28,15 +28,9 @@ The minimum amount of time the controlled device remains on each cycle.
 The maximum amount of time the controlled device remains on each cycle.
 
 
-#### States
-
-* **Next Update**  
-Seconds after epoch when the next update is scheduled.  Used internally.
-
-
 ## How to Use
 
-* Turn the Randomizer device **ON** to begin scheduling WAIT-ON-WAIT-OFF cycles for each dimmer/relay device it controls.
+* Turn the Randomizer device **ON** to begin scheduling wait-ON-wait-OFF cycles for each dimmer/relay device it controls.
 
 * Turn the Randomizer device **OFF** to stop scheduling new cycles.  All controlled devices will complete their current cycles as scheduled.  
 

@@ -24,7 +24,7 @@ The maximum amount of time before the controlled device is turned on each cycle.
 * **Min Duration** (1-10)  
 The minimum amount of time the controlled device remains on each cycle.
 
-* **Min Duration** (1-10)  
+* **Max Duration** (1-10)  
 The maximum amount of time the controlled device remains on each cycle.
 
 
@@ -34,4 +34,4 @@ The maximum amount of time the controlled device remains on each cycle.
 
 * Turn the Randomizer device **OFF** to stop scheduling new cycles.  All controlled devices will complete their current cycles as scheduled.  
 
-As a practical matter, this means you will likely want to turn the randomizer on and off in advance of when you would like the actual lights on and off.  A little trial-and-error is to be expected.
+As a practical matter, this means you will likely want to turn the randomizer on and off in advance of when you would like the actual lights on and off.  A little trial-and-error is probably required.

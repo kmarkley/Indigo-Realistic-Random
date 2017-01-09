@@ -21,7 +21,6 @@ lightDictKeys = (
     'maxDelay',
     'minDuration',
     'maxDuration',
-    'expires'
     )
 
 ################################################################################
@@ -34,51 +33,38 @@ class Plugin(indigo.PluginBase):
         indigo.PluginBase.__del__(self)
 
     ########################################
+    # Start, Stop and Config changes
+    ########################################
     def startup(self):
         self.debug = self.pluginPrefs.get("showDebugInfo",False)
-        self.logger.debug(u"startup")
+        self.logger.debug("startup")
         if self.debug:
             self.logger.debug("Debug logging enabled")
         self.deviceDict = dict()
 
+    ########################################
     def shutdown(self):
-        self.logger.debug(u"shutdown")
+        self.logger.debug("shutdown")
+        self.pluginPrefs["showDebugInfo"] = self.debug
 
+    ########################################
     def closedPrefsConfigUi(self, valuesDict, userCancelled):
-        self.logger.debug(u"closedPrefsConfigUi")
+        self.logger.debug("closedPrefsConfigUi")
         if not userCancelled:
             self.debug = valuesDict.get("showDebugInfo",False)
             if self.debug:
                 self.logger.debug("Debug logging enabled")
 
+    ########################################
     def validatePrefsConfigUi(self, valuesDict):
-        self.logger.debug(u"validatePrefsConfigUi")
+        self.logger.debug("validatePrefsConfigUi")
         errorsDict = indigo.Dict()
                 
         if len(errorsDict) > 0:
             return (False, valuesDict, errorsDict)
         return (True, valuesDict)
     
-    def validateActionConfigUi(self, valuesDict, typeId, devId, runtime=False):
-        self.logger.debug(u"validateActionConfigUi: " + typeId)
-        errorsDict = indigo.Dict()
-                
-        if len(errorsDict) > 0:
-            return (False, valuesDict, errorsDict)
-        return (True, valuesDict)
-
-    def deviceStartComm(self, dev):
-        self.logger.debug(u"deviceStartComm: "+dev.name)
-        if dev.version != self.pluginVersion:
-            self.updateDeviceVersion(dev)
-        if dev.id not in self.deviceDict:
-            self.deviceDict[dev.id] = {'dev':dev, 'nextUpdate':0}
-    
-    def deviceStopComm(self, dev):
-        self.logger.debug(u"deviceStopComm: "+dev.name)
-        if dev.id in self.deviceDict:
-            del self.deviceDict[dev.id]
-            
+    ########################################
     def runConcurrentThread(self):
         try:
             while True:
@@ -87,22 +73,36 @@ class Plugin(indigo.PluginBase):
                     dev = self.deviceDict[devId]['dev']
                     if dev.onState and (self.deviceDict[devId]['nextUpdate'] < loopTime):
                         self.updateDeviceStatus(dev)
-                self.sleep(int(loopTime+10-time.time()))
+                self.sleep(int(loopTime+5-time.time()))
         except self.StopThread:
             pass    # Optionally catch the StopThread exception and do any needed cleanup.
-        
     
     ########################################
     # Device Methods
     ########################################
+    def deviceStartComm(self, dev):
+        self.logger.debug("deviceStartComm: "+dev.name)
+        if dev.version != self.pluginVersion:
+            self.updateDeviceVersion(dev)
+        if dev.id not in self.deviceDict:
+            theProps = dev.pluginProps
+            lightsDict = self.getLightsDict(theProps)
+            self.deviceDict[dev.id] = {'dev':dev, 'nextUpdate':0, 'lightsDict':lightsDict}
     
+    ########################################
+    def deviceStopComm(self, dev):
+        self.logger.debug("deviceStopComm: "+dev.name)
+        if dev.id in self.deviceDict:
+            del self.deviceDict[dev.id]
+    
+    ########################################
     def validateDeviceConfigUi(self, valuesDict, typeId, devId, runtime=False):
-        self.logger.debug(u"validateDeviceConfigUi: " + typeId)
+        self.logger.debug("validateDeviceConfigUi: " + typeId)
         errorsDict = indigo.Dict()
         
         for idx in ("%02d"%i for i in range(1,11)):
             if valuesDict.get('devId'+idx,''):
-                for key in lightDictKeys[1:-1]:
+                for key in lightDictKeys[1:]:
                     if valuesDict.get(key+idx,'') == '':
                         errorsDict[key+idx] = "Must not be empty"
                     elif not valuesDict.get(key+idx).isdigit():
@@ -114,6 +114,7 @@ class Plugin(indigo.PluginBase):
             return (False, valuesDict, errorsDict)
         return (True, valuesDict)
     
+    ########################################
     def updateDeviceVersion(self, dev):
         theProps = dev.pluginProps
         # update states
@@ -128,36 +129,49 @@ class Plugin(indigo.PluginBase):
         theProps["version"] = self.pluginVersion
         dev.replacePluginPropsOnServer(theProps)
     
+    ########################################
     def updateDeviceStatus(self,dev):
-        self.logger.debug(u"updateDeviceStatus: " + dev.name)
+        self.logger.debug("updateDeviceStatus: " + dev.name)
         startTime = time.time()
-        theProps = dev.pluginProps
         expireList = []
-        for idx, light in self.getLightsDict(theProps).iteritems():
+        for idx, light in self.deviceDict[dev.id]['lightsDict'].iteritems():
             if light['devId']:
-                if light['expires'] < startTime:
+                if light.get('expires',0) < startTime:
                     randomDelay    = random.randrange(light['minDelay']*60, light['maxDelay']*60, 1)
                     randomDuration = random.randrange(light['minDuration']*60, light['maxDuration']*60, 1)
-                    indigo.device.turnOn(light['devId'], duration=randomDuration, delay=randomDelay)
                     self.logger.info('"%s" random (delay %s, duration %s)' % (indigo.devices[light['devId']].name, str(datetime.timedelta(seconds=randomDelay)), str(datetime.timedelta(seconds=randomDuration))))
-                    theProps['expires'+idx] = int(startTime + randomDelay + randomDuration)
-                expireList.append(theProps.get('expires'+idx))
-        # update device
-        if theProps != dev.pluginProps:
-            self.logger.debug(u"updateDeviceStatus: replacing device props")
-            dev.replacePluginPropsOnServer(theProps)
-            # don't update again until at least one cycle completes
-            self.deviceDict[dev.id]['nextUpdate'] = min(expireList)
+                    indigo.device.turnOn(light['devId'], duration=randomDuration, delay=randomDelay)
+                    expire = int(startTime + randomDelay + randomDuration)
+                    self.deviceDict[dev.id]['lightsDict'][idx]['expires'] = expire
+                else:
+                    expire = light['expires']
+                expireList.append(expire)
+        # don't update again until at least one cycle completes
+        self.deviceDict[dev.id]['nextUpdate'] = min(expireList)
     
+    ########################################
+    # Action Methods
+    ########################################
+    def validateActionConfigUi(self, valuesDict, typeId, devId, runtime=False):
+        self.logger.debug("validateActionConfigUi: " + typeId)
+        errorsDict = indigo.Dict()
+                
+        if len(errorsDict) > 0:
+            return (False, valuesDict, errorsDict)
+        return (True, valuesDict)
+
+    ########################################
     def actionControlDimmerRelay(self, action, dev):
-        self.logger.debug(u"actionControlDimmerRelay: "+dev.name)
+        self.logger.debug("actionControlDimmerRelay: "+dev.name)
         if action.deviceAction == indigo.kDimmerRelayAction.TurnOn:
             self.logger.info('"%s" on' % dev.name)
             dev.updateStateOnServer(key='onOffState', value=True)
+            self.deviceDict[dev.id]['dev'].refreshFromServer()
             self.updateDeviceStatus(dev)
         elif action.deviceAction == indigo.kDimmerRelayAction.TurnOff:
             self.logger.info('"%s" off' % dev.name)
             dev.updateStateOnServer(key='onOffState', value=False)
+            self.deviceDict[dev.id]['dev'].refreshFromServer()
         elif action.deviceAction == indigo.kUniversalAction.RequestStatus:
             self.logger.info('"%s" status update' % dev.name)
             if dev.onState:
@@ -165,11 +179,21 @@ class Plugin(indigo.PluginBase):
         else:
             self.logger.error("Unknown action: "+unicode(action.deviceAction))
     
+    ########################################
+    # Menu Methods
+    ########################################
+    def toggleDebug(self):
+        if self.debug:
+            self.logger.debug("Debug logging disabled")
+            self.debug = False
+        else:
+            self.debug = True
+            self.logger.debug("Debug logging enabled")
+        
     
     ########################################
     # Utilities
     ########################################
-    
     def getLightsDict(self, theProps):
         lightsDict={}
         for idx in ("%02d"%i for i in range(1,11)):

@@ -85,9 +85,7 @@ class Plugin(indigo.PluginBase):
         if dev.version != self.pluginVersion:
             self.updateDeviceVersion(dev)
         if dev.id not in self.deviceDict:
-            theProps = dev.pluginProps
-            lightsDict = self.getLightsDict(theProps)
-            self.deviceDict[dev.id] = {'dev':dev, 'nextUpdate':0, 'lightsDict':lightsDict}
+            self.deviceDict[dev.id] = {'dev':dev, 'nextUpdate':0, 'lightsDict':self.getLightsDict(dev)}
     
     ########################################
     def deviceStopComm(self, dev):
@@ -163,21 +161,32 @@ class Plugin(indigo.PluginBase):
     ########################################
     def actionControlDimmerRelay(self, action, dev):
         self.logger.debug("actionControlDimmerRelay: "+dev.name)
+        # TURN ON
         if action.deviceAction == indigo.kDimmerRelayAction.TurnOn:
             self.logger.info('"%s" on' % dev.name)
             dev.updateStateOnServer(key='onOffState', value=True)
             self.deviceDict[dev.id]['dev'].refreshFromServer()
             self.updateDeviceStatus(dev)
+        # TURN OFF
         elif action.deviceAction == indigo.kDimmerRelayAction.TurnOff:
             self.logger.info('"%s" off' % dev.name)
             dev.updateStateOnServer(key='onOffState', value=False)
             self.deviceDict[dev.id]['dev'].refreshFromServer()
+        # TOGGLE
+        elif action.deviceAction == indigo.kDimmerRelayAction.TurnOff:
+            #recurse
+            if dev.onState:
+                indigo.device.turnOff(dev.id)
+            else:
+                indigo.device.turnOn(dev.id)
+        # STATUS REQUEST
         elif action.deviceAction == indigo.kUniversalAction.RequestStatus:
             self.logger.info('"%s" status update' % dev.name)
             if dev.onState:
                 self.updateDeviceStatus(dev)
+        # UNKNOWN
         else:
-            self.logger.error("Unknown action: "+unicode(action.deviceAction))
+            self.logger.debug('"%s" %s request ignored' % (dev.name, unicode(action.deviceAction)))
     
     ########################################
     # Menu Methods
@@ -194,13 +203,14 @@ class Plugin(indigo.PluginBase):
     ########################################
     # Utilities
     ########################################
-    def getLightsDict(self, theProps):
+    def getLightsDict(self, dev):
+        theProps = dev.pluginProps
         lightsDict={}
         for idx in ("%02d"%i for i in range(1,11)):
             vals = {}
             for key in lightDictKeys:
                 if theProps.get(key+idx,''):
-                    vals[key] = int(theProps.get(key+idx))
+                    vals[key] = int(theProps[key+idx])
                 else:
                     vals[key] = 0
             lightsDict[idx] = vals

@@ -12,8 +12,10 @@ The plugin defines one new type of Device, called Randomizer.  Each Randomizer d
 
 #### Configuration
 
+For each of up to 10 relay or dimmer devices for this device to control:
+
 * **Device**  
-Define up to 10 relay or dimmer devices for this device to control.
+Select the device.
 
 * **Min Delay**  
 The minimum amount of time before the controlled device is turned on each cycle.

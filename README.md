@@ -29,6 +29,17 @@ The minimum amount of time the controlled device remains on each cycle.
 * **Max Duration**  
 The maximum amount of time the controlled device remains on each cycle.
 
+## Device Actions
+
+If you don't want the randomized wait-ON-wait-OFF cycles of controlled devices to complete as scheduled, two device actions are available to override this behavior:
+
+#### Freeze Effect
+
+This action will cancel all cycles for controlled devices, leaving them in whatever state they are in when the action runs.  It will also turn off the randomizer device so no new cycles will be created.
+
+#### Force All Off
+
+Same as above, but will also turn off any controlled devices that are on.
 
 ## How to Use
 

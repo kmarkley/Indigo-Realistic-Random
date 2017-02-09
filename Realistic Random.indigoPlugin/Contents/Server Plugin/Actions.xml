@@ -1,3 +1,11 @@
 <?xml version="1.0"?>
 <Actions>
+	<Action id="freezeRandomizerEffect" deviceFilter="self" uiPath="DeviceActions">
+		<Name>Freeze Effect</Name>
+		<CallbackMethod>freezeRandomizerEffect</CallbackMethod>
+	</Action>
+	<Action id="forceRandomizerOff" deviceFilter="self" uiPath="DeviceActions">
+		<Name>Force All Off</Name>
+		<CallbackMethod>forceRandomizerOff</CallbackMethod>
+	</Action>
 </Actions>

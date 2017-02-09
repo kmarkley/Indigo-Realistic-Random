@@ -9,7 +9,7 @@
             <Field id="sep0" type="separator"/>
             <Field id="devId01" type="menu">
                 <Label>Select Device 1:</Label>
-                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+                <List class='self' method='getRelayDimmerDeviceList'/>
             </Field>
             <Field id="minDelay01" type="textfield" defaultValue="5">
                 <Label>Min. Delay:</Label>
@@ -29,7 +29,7 @@
             </Field>
             <Field id="devId02" type="menu" visibleBindingId='show02'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Select Device 2:</Label>
-                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+                <List class='self' method='getRelayDimmerDeviceList'/>
             </Field>
             <Field id="minDelay02" type="textfield" defaultValue="5" visibleBindingId='show02'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Min. Delay:</Label>
@@ -49,7 +49,7 @@
             </Field>
             <Field id="devId03" type="menu" visibleBindingId='show03'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Select Device 3:</Label>
-                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+                <List class='self' method='getRelayDimmerDeviceList'/>
             </Field>
             <Field id="minDelay03" type="textfield" defaultValue="5" visibleBindingId='show03'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Min. Delay:</Label>
@@ -69,7 +69,7 @@
             </Field>
             <Field id="devId04" type="menu" visibleBindingId='show04'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Select Device 4:</Label>
-                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+                <List class='self' method='getRelayDimmerDeviceList'/>
             </Field>
             <Field id="minDelay04" type="textfield" defaultValue="5" visibleBindingId='show04'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Min. Delay:</Label>
@@ -89,7 +89,7 @@
             </Field>
             <Field id="devId05" type="menu" visibleBindingId='show05'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Select Device 5:</Label>
-                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+                <List class='self' method='getRelayDimmerDeviceList'/>
             </Field>
             <Field id="minDelay05" type="textfield" defaultValue="5" visibleBindingId='show05'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Min. Delay:</Label>
@@ -109,7 +109,7 @@
             </Field>
             <Field id="devId06" type="menu" visibleBindingId='show06'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Select Device 6:</Label>
-                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+                <List class='self' method='getRelayDimmerDeviceList'/>
             </Field>
             <Field id="minDelay06" type="textfield" defaultValue="5" visibleBindingId='show06'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Min. Delay:</Label>
@@ -129,7 +129,7 @@
             </Field>
             <Field id="devId07" type="menu" visibleBindingId='show07'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Select Device 7:</Label>
-                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+                <List class='self' method='getRelayDimmerDeviceList'/>
             </Field>
             <Field id="minDelay07" type="textfield" defaultValue="5" visibleBindingId='show07'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Min. Delay:</Label>
@@ -149,7 +149,7 @@
             </Field>
             <Field id="devId08" type="menu" visibleBindingId='show08'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Select Device 8:</Label>
-                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+                <List class='self' method='getRelayDimmerDeviceList'/>
             </Field>
             <Field id="minDelay08" type="textfield" defaultValue="5" visibleBindingId='show08'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Min. Delay:</Label>
@@ -169,7 +169,7 @@
             </Field>
             <Field id="devId09" type="menu" visibleBindingId='show09'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Select Device 9:</Label>
-                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+                <List class='self' method='getRelayDimmerDeviceList'/>
             </Field>
             <Field id="minDelay09" type="textfield" defaultValue="5" visibleBindingId='show09'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Min. Delay:</Label>
@@ -189,7 +189,7 @@
             </Field>
             <Field id="devId10" type="menu" visibleBindingId='show10'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Select Device 10:</Label>
-                <List class="indigo.devices" filter="indigo.relay, indigo.dimmer"/>
+                <List class='self' method='getRelayDimmerDeviceList'/>
             </Field>
             <Field id="minDelay10" type="textfield" defaultValue="5" visibleBindingId='show10'  visibleBindingValue='true' alwaysUseInDialogHeightCalc='true'>
                 <Label>Min. Delay:</Label>

@@ -98,15 +98,21 @@ class Plugin(indigo.PluginBase):
         self.logger.debug("validateDeviceConfigUi: " + typeId)
         errorsDict = indigo.Dict()
         
+        lightsList = []
         for idx in ("%02d"%i for i in range(1,11)):
-            if valuesDict.get('devId'+idx,''):
-                for key in lightDictKeys[1:]:
-                    if valuesDict.get(key+idx,'') == '':
-                        errorsDict[key+idx] = "Must not be empty"
-                    elif not valuesDict.get(key+idx).isdigit():
-                        errorsDict[key+idx] = "Must be a positive integer"
-                    elif not ( 0 < int(valuesDict.get(key+idx)) < 481):
-                        errorsDict[key+idx] = "Must be between 1 and 480"
+            lightId = valuesDict.get('devId'+idx,'')
+            if lightId:
+                if lightId in lightsList:
+                    errorsDict['devId'+idx] = "Duplicate device"
+                else:
+                    lightsList.append(lightId)
+                    for key in lightDictKeys[1:]:
+                        if valuesDict.get(key+idx,'') == '':
+                            errorsDict[key+idx] = "Must not be empty"
+                        elif not valuesDict.get(key+idx).isdigit():
+                            errorsDict[key+idx] = "Must be a positive integer"
+                        elif not ( 0 < int(valuesDict.get(key+idx)) < 481):
+                            errorsDict[key+idx] = "Must be between 1 and 480"
         
         if len(errorsDict) > 0:
             self.logger.debug('validate device config error: \n%s' % str(errorsDict))

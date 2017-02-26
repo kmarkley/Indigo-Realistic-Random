@@ -221,6 +221,7 @@ class Plugin(indigo.PluginBase):
         for dev in indigo.devices.iter(filter='indigo.relay, indigo.dimmer'):
             if not dev.id in excludeList:
                 devList.append((dev.id, dev.name))
+        devList.append((0,"- none -"))
         return devList        
         
     ########################################

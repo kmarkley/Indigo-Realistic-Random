@@ -72,7 +72,7 @@ class Plugin(indigo.PluginBase):
                 for devId in self.deviceDict:
                     if self.deviceDict[devId]['dev'].states['onOffState'] and (self.deviceDict[devId]['nextUpdate'] < loopTime):
                         self.updateDeviceStatus(devId)
-                self.sleep(int(loopTime+5-time.time()))
+                self.sleep(loopTime+5-time.time())
         except self.StopThread:
             pass    # Optionally catch the StopThread exception and do any needed cleanup.
     
@@ -150,7 +150,7 @@ class Plugin(indigo.PluginBase):
                     indigo.device.turnOff(light.id, delay=randomDuration)
                 else:
                     indigo.device.turnOn(light.id, duration=randomDuration, delay=randomDelay)
-                expire = int(startTime + randomDelay + randomDuration)
+                expire = startTime + randomDelay + randomDuration
                 self.deviceDict[devId]['lightsDict'][idx]['expires'] = expire
             else:
                 expire = lightProps['expires']
@@ -239,9 +239,9 @@ class Plugin(indigo.PluginBase):
         for idx in ("%02d"%i for i in range(1,11)):
             lightProps = {}
             for key in lightDictKeys:
-                if theProps.get(key+idx,''):
-                    lightProps[key] = int(theProps[key+idx])
-                else:
+                try:
+                    lightProps[key] = int(theProps.get(key+idx,''))
+                except:
                     lightProps[key] = 0
             lightProps['expires'] = 0
             if lightProps['devId']:

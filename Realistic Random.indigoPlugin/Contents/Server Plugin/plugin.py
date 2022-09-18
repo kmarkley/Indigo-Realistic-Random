@@ -89,7 +89,7 @@ class Plugin(indigo.PluginBase):
         errorsDict = indigo.Dict()
 
         lightsList = []
-        for idx in ("{:0>2d}".format(i) for i in range(1,11)):
+        for idx in (f"{i:0>2d}" for i in range(1,11)):
             lightId = valuesDict.get('devId'+idx,'')
             if lightId:
                 if lightId in lightsList:
@@ -116,7 +116,7 @@ class Plugin(indigo.PluginBase):
         dev.stateListOrDisplayStateIdChanged()
         # check for props
         for index in range(1,11):
-            indexString = "{:0>2d}".format(index)
+            indexString = f"{index:0>2d}"
             for key in lightDictKeys:
                 if key+indexString not in theProps:
                     theProps[key+indexString] = ''
@@ -127,9 +127,9 @@ class Plugin(indigo.PluginBase):
     #-------------------------------------------------------------------------------
     # Action Methods
     #-------------------------------------------------------------------------------
-    def actionControlDimmerRelay(self, action, dev):
-        self.logger.debug("actionControlDimmerRelay: "+dev.name)
-        randomizer = self.deviceDict[dev.id]
+    def actionControlDimmerRelay(self, action, device):
+        self.logger.debug(f"actionControlDimmerRelay: {device.name}")
+        randomizer = self.deviceDict[device.id]
         # TURN ON
         if action.deviceAction == indigo.kDimmerRelayAction.TurnOn:
             randomizer.onState = True
@@ -141,25 +141,25 @@ class Plugin(indigo.PluginBase):
             randomizer.onState = not randomizer.onState
         # STATUS REQUEST
         elif action.deviceAction == indigo.kUniversalAction.RequestStatus:
-            self.logger.info('"{}" status update'.format(dev.name))
+            self.logger.info(f'"{device.name}" status update')
             randomizer.update()
         # UNKNOWN
         else:
-            self.logger.debug('"{}" {} request ignored'.format(dev.name, unicode(action.deviceAction)))
+            self.logger.debug(f'"{device.name}" {str(action.deviceAction)} request ignored')
 
     #-------------------------------------------------------------------------------
     def freezeRandomizerEffect(self, action):
         try:
             self.deviceDict[action.deviceId].cancel(False)
         except:
-            self.logger.error('device "{}" not available'.format(action.deviceId))
+            self.logger.error(f'device "{action.deviceId}" not available')
 
     #-------------------------------------------------------------------------------
     def forceRandomizerOff(self, action):
         try:
             self.deviceDict[action.deviceId].cancel(True)
         except:
-            self.logger.error('device "{}" not available'.format(action.deviceId))
+            self.logger.error(f'device "{action.deviceId}" not available')
 
     #-------------------------------------------------------------------------------
     # Menu Methods
@@ -227,7 +227,7 @@ class Plugin(indigo.PluginBase):
 
         def onStateSet(self,newState):
             if newState != self.onState:
-                self.logger.info('"{}" {}'.format(self.dev.name, ['off','on'][newState]))
+                self.logger.info(f'"{self.dev.name}" {["off","on"][newState]}')
                 self.dev.updateStateOnServer(key='onOffState', value=newState)
                 self.states = self.dev.states
                 if newState:
@@ -240,7 +240,7 @@ class Plugin(indigo.PluginBase):
 
             #-------------------------------------------------------------------------------
             def __init__(self, props, index, parent):
-                indexString     = "{:0>2d}".format(index)
+                indexString     = f"{index:0>2d}"
                 self.id         = int(props.get('devId'+indexString,'0'))
                 self.refresh()
                 self.minDel     = int(props.get('minDelay'+indexString,'5'))
@@ -262,9 +262,9 @@ class Plugin(indigo.PluginBase):
                     self.refresh()
                     randomDelay     = random.randrange(self.minDel*60, self.maxDel*60, 1)
                     randomDuration  = random.randrange(self.minDur*60, self.maxDur*60, 1)
-                    delayStr        = ['delay {}'.format(datetime.timedelta(seconds=randomDelay)), 'already on'][self.onState]
-                    durationStr     = 'duration {}'.format(datetime.timedelta(seconds=randomDuration))
-                    self.logger.info('"{}" random ({}, {})'.format(self.name, delayStr, durationStr))
+                    delayStr        = [f'delay {datetime.timedelta(seconds=randomDelay)}', 'already on'][self.onState]
+                    durationStr     = f'duration {datetime.timedelta(seconds=randomDuration)}'
+                    self.logger.info(f'"{self.name}" random ({delayStr}, {durationStr})')
                     if self.onState:
                         indigo.device.turnOff(self.id, delay=randomDuration)
                     else:
@@ -275,8 +275,8 @@ class Plugin(indigo.PluginBase):
             def cancel(self, turnOff=False):
                 self.refresh()
                 self.expire = 0
-                self.logger.debug('remove delayed actions for "{}"'.format(self.name))
+                self.logger.debug(f'remove delayed actions for "{self.name}"')
                 indigo.device.removeDelayedActions(self.id)
                 if self.onState and turnOff:
-                    self.logger.debug('turn off "{}"'.format(self.name))
+                    self.logger.debug(f'turn off "{self.name}"')
                     indigo.device.turnOff(self.id)
